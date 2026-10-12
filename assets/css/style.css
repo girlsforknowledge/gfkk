@@ -1,0 +1,1252 @@
+/* DESIGN GUIDE: This is the clothing shared by all seven pages.
+   A rule looks like .card { padding: 30px; }. .card chooses a class in HTML.
+   padding is space INSIDE a box; margin is space OUTSIDE it; gap separates boxes.
+   color paints letters; background paints the box; border draws its edge.
+   font-size changes letter size. border-radius rounds corners.
+   width/height set size. object-fit: cover fills a photo box by cropping its edges.
+   object-fit: contain shows the whole photo/logo, sometimes leaving empty space.
+   grid arranges boxes in rows; flex arranges flexible groups such as buttons.
+   :hover means the mouse is over something; :focus means a field is selected.
+   ::before and ::after draw extra decorations; they are not real HTML elements.
+   Later matching rules can override earlier ones. Phone rules are near the end.
+   Keep punctuation such as braces, colons, and semicolons when changing values.
+*/
+/* SHARED PAINT BOX: --blue is the main brand color; --ink is body text;
+   --muted is softer text; --line is borders; --radius is corner roundness;
+   --max limits page width. var(--blue) reuses the named color elsewhere. */
+
+/*GLOBAL CONTAINER DEFINITION*/
+.follow-container {
+  display: flex;
+  flex-direction: column; /* Stack vertically on smart phones */
+  gap: 12px;
+  justify-content: center;
+  align-items: center;
+  width: 100%;
+  padding: 20px;
+  box-sizing: border-box;
+}
+.new_f{
+  border-radius: 30px;
+  border: 2px solid #007aff;
+}
+
+
+/* ========================================================
+   BASE STRUCTURE: SMARTPHONE FIRST (VIEWPORT < 768px)
+   ======================================================== */
+.follow-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  padding: 0 24px;
+  width: 100%;           /* Full width for easy finger tap tracking */
+  max-width: 280px;      
+  height: 48px;          /* Minimum touch size matching design safety layouts */
+  font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 16px;       
+  font-weight: 500;
+  color: #1a1a1a;
+  background-color: #ffffff;
+  border: 1px solid #1a1a1a;
+  border-radius: 99px;   /* Fluid pill structure */
+  cursor: pointer;
+  transition: all 0.2s cubic-bezier(0.4, 0, 0.2, 1);
+  -webkit-tap-highlight-color: transparent; 
+}
+
+/* Structural internal transition rules */
+.follow-btn i {
+  transition: transform 0.2s ease;
+}
+
+/* Touch Down Feedback for Smartphones */
+.follow-btn:active {
+  transform: scale(0.97);
+}
+
+/* ========================================================
+   ACTIVE STATE (FOLLOWING / JOINED)
+   ======================================================== */
+.follow-btn.is-following {
+  background-color: #1a1a1a;
+  color: #ffffff;
+  border-color: #1a1a1a;
+}
+
+/* ========================================================
+   ADAPTIVE LAPTOP VIEWPORT CHANGES (VIEWPORT >= 768px)
+   ======================================================== */
+@media (min-width: 768px) {
+  .follow-container {
+    flex-direction: column; /* Horizontal inline structure for laptops */
+    gap: 16px;
+  }
+
+  .follow-btn {
+    width: auto;         /* Snap down dynamically to text boundaries */
+    height: 36px;        /* Compact layout sizing fit for mouse pointers */
+    font-size: 14px;     
+    padding: 0 16px;
+    gap: 8px;
+  }
+}
+
+/* ========================================================
+   DESKTOP HOVER STATES (IGNORES SMARTPHONE ACCIDENTS)
+   ======================================================== */
+@media (hover: hover) {
+  /* Facebook Hover Variation */
+  .follow-btn:not(.is-following).facebook:hover {
+    color: #1877f2;
+    border-color: #1877f2;
+    background-color: rgba(24, 119, 242, 0.04);
+  }
+
+  @media (hover: hover) {
+  /* Phone Call Custom Brand State Override */
+  .follow-btn:not(.is-following).phone:hover {
+    color: #007aff;                         /* Dialing Communication Blue */
+    border-color: #007aff;                  
+    background-color: rgba(0, 122, 255, 0.04); 
+  }
+
+  @media (hover: hover) {
+  /* Gmail Custom Brand State Override */
+  .follow-btn:not(.is-following).gmail:hover {
+    color: #ea4335;                         /* Iconic Gmail Red */
+    border-color: #ea4335;                  /* Matches border edge to logo branding */
+    background-color: rgba(234, 67, 53, 0.04); /* Faint red tint overlay background */
+  }
+
+  /* Instagram Hover Variation */
+  .follow-btn:not(.is-following).instagram:hover {
+    color: #e1306c;
+    border-color: #e1306c;
+    background-color: rgba(225, 48, 108, 0.04);
+  }
+
+  /* LinkedIn Hover Variation */
+  .follow-btn:not(.is-following).linkedin:hover {
+    color: #0a66c2;
+    border-color: #0a66c2;
+    background-color: rgba(10, 102, 194, 0.04);
+  }
+
+  /* WhatsApp Hover Variation */
+  .follow-btn:not(.is-following).whatsapp:hover {
+    color: #25d366;
+    border-color: #25d366;
+    background-color: rgba(37, 211, 102, 0.04);
+  }
+
+  /* Active Followed Button Hover Variance */
+  .follow-btn.is-following:hover {
+    background-color: #000000;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  }
+}
+
+
+:root {
+  --blue:#2f7bd8;
+  --blue-2:#67aaf1;
+  --blue-3:#eaf3ff;
+  --navy:#102b4e;
+  --ink:#172235;
+  --muted:#64748b;
+  --line:#dbe6f2;
+  --surface:#ffffff;
+  --surface-2:#f7f9fc;
+  --shadow:0 18px 55px rgba(16,43,78,.12);
+  --radius:24px;
+  --max:1180px;
+}
+/* All elements: include border and padding when calculating a box size. */
+* {
+  box-sizing:border-box
+}
+/* Style for html. Match class names to the HTML. Change the values below to adjust this part. */
+html {
+  scroll-behavior:smooth
+}
+/* Style for body. Match class names to the HTML. Change the values below to adjust this part. */
+body {
+  margin:0;
+  font-family:Inter,ui-sans-serif,system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",Arial,sans-serif;
+  color:var(--ink);
+  background:#fff;
+  line-height:1.65
+}
+/* Style for a. Match class names to the HTML. Change the values below to adjust this part. */
+a {
+  color:inherit;
+  text-decoration:none
+}
+/* Style for img. Match class names to the HTML. Change the values below to adjust this part. */
+img {
+  max-width:100%;
+  display:block
+}
+/* Style for button,input,textarea. Match class names to the HTML. Change the values below to adjust this part. */
+button,input,textarea {
+  font:inherit
+}
+/* Style for .container. Match class names to the HTML. Change the values below to adjust this part. */
+.container {
+  width:min(calc(100% - 36px),var(--max));
+  margin-inline:auto
+}
+/* Style for .announcement. Match class names to the HTML. Change the values below to adjust this part. */
+.announcement {
+  background:var(--navy);
+  color:#fff;
+  text-align:center;
+  font-size:.9rem;
+  padding:7px 16px
+}
+/* Style for .announcement a. Match class names to the HTML. Change the values below to adjust this part. */
+.announcement a {
+  text-decoration:underline;
+  text-underline-offset:3px
+}
+/* Style for .site-header. Match class names to the HTML. Change the values below to adjust this part. */
+.site-header {
+  position:sticky;
+  top:0;
+  z-index:50;
+  background:rgba(255,255,255,.95);
+  backdrop-filter:blur(18px);
+  border-bottom:1px solid rgba(219,230,242,.85)
+}
+/* Style for .nav. Match class names to the HTML. Change the values below to adjust this part. */
+.nav {
+  min-height:82px;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:28px
+}
+/* Style for .brand. Match class names to the HTML. Change the values below to adjust this part. */
+.brand {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  min-width:205px
+}
+/* Style for .brand img. Match class names to the HTML. Change the values below to adjust this part. */
+.brand img {
+  width:156px;
+  height:62px;
+  object-fit:contain;
+  object-position:left center
+}
+/* Style for .nav-links. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links {
+  display:flex;
+  align-items:center;
+  gap:7px;
+  margin-left:auto
+}
+/* Style for .nav-links>a,.dropdown-toggle. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links>a,.dropdown-toggle {
+  padding:10px 12px;
+  border-radius:11px;
+  font-weight:650;
+  font-size:.95rem;
+  color:#23344d;
+  background:none;
+  border:0;
+  cursor:pointer
+}
+/* Style for .nav-links>a:hover,.dropdown-toggle:hover,.nav-links>a.active. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links>a:hover,.dropdown-toggle:hover,.nav-links>a.active {
+  background:var(--blue-3);
+  color:var(--blue)
+}
+/* Style for .dropdown. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown {
+  position:relative
+}
+/* Style for .dropdown-menu. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown-menu {
+  position:absolute;
+  top:calc(100% + 10px);
+  left:0;
+  width:210px;
+  background:#fff;
+  border:1px solid var(--line);
+  box-shadow:var(--shadow);
+  border-radius:16px;
+  padding:8px;
+  opacity:0;
+  visibility:hidden;
+  transform:translateY(-8px);
+  transition:.2s ease
+}
+/* Style for .dropdown:hover .dropdown-menu,.dropdown.open .dropdown-menu. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown:hover .dropdown-menu,.dropdown.open .dropdown-menu {
+  opacity:1;
+  visibility:visible;
+  transform:none
+}
+/* Style for .dropdown-menu a. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown-menu a {
+  display:block;
+  padding:10px 12px;
+  border-radius:10px;
+  font-size:.94rem
+}
+/* Style for .dropdown-menu a:hover. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown-menu a:hover {
+  background:var(--surface-2);
+  color:var(--blue)
+}
+/* Style for .nav-actions. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-actions {
+  display:flex;
+  align-items:center;
+  gap:9px
+}
+/* Style for .btn. Match class names to the HTML. Change the values below to adjust this part. */
+.btn {
+  display:inline-flex;
+  align-items:center;
+  justify-content:center;
+  gap:8px;
+  border-radius:999px;
+  padding:12px 19px;
+  font-weight:750;
+  border:1px solid transparent;
+  cursor:pointer;
+  transition:.2s ease
+}
+/* Style for .btn:hover. Match class names to the HTML. Change the values below to adjust this part. */
+.btn:hover {
+  transform:translateY(-1px)
+}
+/* Style for .btn-primary. Match class names to the HTML. Change the values below to adjust this part. */
+.btn-primary {
+  background:var(--blue);
+  color:#fff;
+  box-shadow:0 10px 26px rgba(47,123,216,.25)
+}
+/* Style for .btn-primary:hover. Match class names to the HTML. Change the values below to adjust this part. */
+.btn-primary:hover {
+  background:#246fca
+}
+/* Style for .btn-dark. Match class names to the HTML. Change the values below to adjust this part. */
+.btn-dark {
+  background:var(--navy);
+  color:#fff
+}
+/* Style for .btn-light. Match class names to the HTML. Change the values below to adjust this part. */
+.btn-light {
+  background:#fff;
+  color:var(--navy);
+  border-color:rgba(255,255,255,.65)
+}
+/* Style for .btn-outline. Match class names to the HTML. Change the values below to adjust this part. */
+.btn-outline {
+  background:#fff;
+  border-color:var(--line);
+  color:var(--navy)
+}
+/* Style for .menu-btn. Match class names to the HTML. Change the values below to adjust this part. */
+.menu-btn {
+  display:none;
+  border:1px solid var(--line);
+  background:#fff;
+  border-radius:12px;
+  padding:9px 11px;
+  font-size:1.25rem;
+  cursor:pointer
+}
+/* Style for .hero. Match class names to the HTML. Change the values below to adjust this part. */
+.hero {
+  position:relative;
+  min-height:690px;
+  display:flex;
+  align-items:flex-end;
+  overflow:hidden;
+  background:#0c1f38
+}
+/* Style for .hero-media. Match class names to the HTML. Change the values below to adjust this part. */
+.hero-media {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  object-position:center 42%
+}
+/* Style for .hero::before. Match class names to the HTML. Change the values below to adjust this part. */
+.hero::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(7,22,41,.88) 0%,rgba(7,22,41,.62) 48%,rgba(7,22,41,.22) 100%),linear-gradient(0deg,rgba(7,22,41,.35),transparent 50%)
+}
+/* Style for .hero-content. Match class names to the HTML. Change the values below to adjust this part. */
+.hero-content {
+  position:relative;
+  z-index:1;
+  color:#fff;
+  padding:115px 0 92px;
+  max-width:720px
+}
+/* Style for .kicker. Match class names to the HTML. Change the values below to adjust this part. */
+.kicker {
+  display:inline-flex;
+  align-items:center;
+  gap:8px;
+  text-transform:uppercase;
+  letter-spacing:.16em;
+  font-size:.78rem;
+  font-weight:800;
+  color:var(--blue);
+  margin-bottom:16px
+}
+/* Style for .hero .kicker. Match class names to the HTML. Change the values below to adjust this part. */
+.hero .kicker {
+  color:#b8d9ff
+}
+/* Style for .hero h1,.page-hero h1. Match class names to the HTML. Change the values below to adjust this part. */
+.hero h1,.page-hero h1 {
+  font-size:clamp(2.65rem,6vw,5.65rem);
+  line-height:.98;
+  letter-spacing:-.05em;
+  margin:0 0 22px;
+  max-width:900px
+}
+/* Style for .hero p. Match class names to the HTML. Change the values below to adjust this part. */
+.hero p {
+  font-size:clamp(1.04rem,2vw,1.28rem);
+  max-width:650px;
+  color:rgba(255,255,255,.9);
+  margin:0 0 28px
+}
+/* Style for .hero-buttons. Match class names to the HTML. Change the values below to adjust this part. */
+.hero-buttons {
+  display:flex;
+  flex-wrap:wrap;
+  gap:12px
+}
+/* Style for .section. Match class names to the HTML. Change the values below to adjust this part. */
+.section {
+  padding:92px 0
+}
+/* Style for .section-sm. Match class names to the HTML. Change the values below to adjust this part. */
+.section-sm {
+  padding:66px 0
+}
+/* Style for .bg-soft. Match class names to the HTML. Change the values below to adjust this part. */
+.bg-soft {
+  background:var(--surface-2)
+}
+/* Style for .bg-blue. Match class names to the HTML. Change the values below to adjust this part. */
+.bg-blue {
+  background:var(--navy);
+  color:#fff
+}
+/* Style for .section-heading. Match class names to the HTML. Change the values below to adjust this part. */
+.section-heading {
+  max-width:760px;
+  margin-bottom:40px
+}
+/* Style for .section-heading h2. Match class names to the HTML. Change the values below to adjust this part. */
+.section-heading h2 {
+  font-size:clamp(2rem,4vw,3.45rem);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  margin:0 0 15px
+}
+/* Style for .section-heading p. Match class names to the HTML. Change the values below to adjust this part. */
+.section-heading p {
+  font-size:1.08rem;
+  color:var(--muted);
+  margin:0
+}
+/* Style for .bg-blue .section-heading p. Match class names to the HTML. Change the values below to adjust this part. */
+.bg-blue .section-heading p {
+  color:#cbd8e7
+}
+/* Style for .intro-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.intro-grid {
+  display:grid;
+  grid-template-columns:1.15fr .85fr;
+  gap:70px;
+  align-items:center
+}
+/* Style for .intro-quote. Match class names to the HTML. Change the values below to adjust this part. */
+.intro-quote {
+  font-size:clamp(2rem,4.6vw,4.2rem);
+  line-height:1.08;
+  letter-spacing:-.045em;
+  margin:0;
+  font-weight:760
+}
+/* Style for .intro-copy p. Match class names to the HTML. Change the values below to adjust this part. */
+.intro-copy p {
+  color:var(--muted);
+  font-size:1.08rem
+}
+/* PROGRAM / DEPARTMENT ROW: repeat(3,1fr) means three equal columns on a large screen. Extra cards make another row. */
+.cards {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:20px
+}
+/* Style for .card. Match class names to the HTML. Change the values below to adjust this part. */
+.card {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:var(--radius);
+  padding:30px;
+  box-shadow:0 10px 35px rgba(16,43,78,.06)
+}
+/* Style for .card-icon. Match class names to the HTML. Change the values below to adjust this part. */
+.card-icon {
+  width:50px;
+  height:50px;
+  border-radius:16px;
+  background:var(--blue-3);
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-size:1.4rem;
+  margin-bottom:24px
+}
+/* Style for .card h3. Match class names to the HTML. Change the values below to adjust this part. */
+.card h3 {
+  font-size:1.32rem;
+  margin:0 0 10px
+}
+/* Style for .card p. Match class names to the HTML. Change the values below to adjust this part. */
+.card p {
+  color:var(--muted);
+  margin:0
+}
+/* Style for .split. Match class names to the HTML. Change the values below to adjust this part. */
+.split {
+  display:grid;
+  grid-template-columns:1fr 1fr;
+  gap:66px;
+  align-items:center
+}
+/* Style for .image-frame. Match class names to the HTML. Change the values below to adjust this part. */
+.image-frame {
+  border-radius:28px;
+  overflow:hidden;
+  box-shadow:var(--shadow);
+  background:#e5ecf5
+}
+/* Style for .image-frame img. Match class names to the HTML. Change the values below to adjust this part. */
+.image-frame img {
+  width:100%;
+  height:520px;
+  object-fit:cover
+}
+/* Style for .copy h2. Match class names to the HTML. Change the values below to adjust this part. */
+.copy h2 {
+  font-size:clamp(2rem,4vw,3.4rem);
+  line-height:1.08;
+  letter-spacing:-.035em;
+  margin:0 0 20px
+}
+/* Style for .copy p. Match class names to the HTML. Change the values below to adjust this part. */
+.copy p {
+  color:var(--muted);
+  font-size:1.05rem
+}
+/* Style for .copy .btn. Match class names to the HTML. Change the values below to adjust this part. */
+.copy .btn {
+  margin-top:10px
+}
+/* PHOTO GRID: This original layout gives the first two rows fixed heights. See the guide before adding more photos. */
+.gallery {
+  display:grid;
+  grid-template-columns:1.15fr .85fr .85fr;
+  grid-template-rows:260px 260px;
+  gap:16px
+}
+/* Style for .gallery figure. Match class names to the HTML. Change the values below to adjust this part. */
+.gallery figure {
+  margin:0;
+  border-radius:20px;
+  overflow:hidden;
+  position:relative;
+  background:#dfe9f5
+}
+/* FIRST PHOTO: Let the first gallery picture take extra room. */
+.gallery figure:first-child {
+  grid-row:1/3
+}
+/* Style for .gallery img. Match class names to the HTML. Change the values below to adjust this part. */
+.gallery img {
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  transition:transform .35s ease
+}
+/* Style for .gallery figure:hover img. Match class names to the HTML. Change the values below to adjust this part. */
+.gallery figure:hover img {
+  transform:scale(1.025)
+}
+/* Style for .cta-band. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band {
+  border-radius:32px;
+  background:linear-gradient(135deg,var(--blue),#245fae);
+  padding:54px;
+  color:#fff;
+  display:flex;
+  align-items:center;
+  justify-content:space-between;
+  gap:34px;
+  overflow:hidden;
+  position:relative
+}
+/* Style for .cta-band::after. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band::after {
+  content:"";
+  position:absolute;
+  width:300px;
+  height:300px;
+  border-radius:50%;
+  background:rgba(255,255,255,.09);
+  right:-90px;
+  top:-160px
+}
+/* Style for .cta-band h2. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band h2 {
+  font-size:clamp(2rem,4vw,3.2rem);
+  line-height:1.08;
+  margin:0 0 11px;
+  position:relative;
+  z-index:1
+}
+/* Style for .cta-band p. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band p {
+  margin:0;
+  color:#eaf3ff;
+  max-width:630px;
+  position:relative;
+  z-index:1
+}
+/* Style for .cta-band .actions. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band .actions {
+  display:flex;
+  gap:10px;
+  flex-wrap:wrap;
+  position:relative;
+  z-index:1;
+  flex-shrink:0
+}
+/* Style for .page-hero. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero {
+  background:var(--navy);
+  color:#fff;
+  padding:110px 0 82px;
+  position:relative;
+  overflow:hidden
+}
+/* Style for .page-hero.with-image. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero.with-image {
+  min-height:540px;
+  display:flex;
+  align-items:flex-end
+}
+/* Style for .page-hero.with-image img. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero.with-image img {
+  position:absolute;
+  inset:0;
+  width:100%;
+  height:100%;
+  object-fit:cover;
+  opacity:.52
+}
+/* Style for .page-hero.with-image::before. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero.with-image::before {
+  content:"";
+  position:absolute;
+  inset:0;
+  background:linear-gradient(90deg,rgba(10,31,56,.9),rgba(10,31,56,.38))
+}
+/* Style for .page-hero .container. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero .container {
+  position:relative;
+  z-index:1
+}
+/* Style for .page-hero p. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero p {
+  font-size:1.18rem;
+  max-width:700px;
+  color:#d6e3f2;
+  margin:0
+}
+/* Style for .prose. Match class names to the HTML. Change the values below to adjust this part. */
+.prose {
+  max-width:800px
+}
+/* Style for .prose h2. Match class names to the HTML. Change the values below to adjust this part. */
+.prose h2 {
+  font-size:2.1rem;
+  line-height:1.16;
+  margin:40px 0 14px
+}
+/* Style for .prose h2:first-child. Match class names to the HTML. Change the values below to adjust this part. */
+.prose h2:first-child {
+  margin-top:0
+}
+/* Style for .prose p. Match class names to the HTML. Change the values below to adjust this part. */
+.prose p {
+  color:var(--muted);
+  font-size:1.06rem
+}
+/* Style for .values. Match class names to the HTML. Change the values below to adjust this part. */
+.values {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px;
+  margin-top:36px
+}
+/* Style for .value. Match class names to the HTML. Change the values below to adjust this part. */
+.value {
+  padding:24px 0;
+  border-top:2px solid var(--blue)
+}
+/* Style for .value h3. Match class names to the HTML. Change the values below to adjust this part. */
+.value h3 {
+  margin:0 0 8px
+}
+/* Style for .value p. Match class names to the HTML. Change the values below to adjust this part. */
+.value p {
+  margin:0;
+  color:var(--muted)
+}
+
+.founder-grid {
+  display:grid;
+  grid-template-columns:.78fr 1.22fr;
+  gap:72px;
+  align-items:start
+}
+/* Style for .portrait. Match class names to the HTML. Change the values below to adjust this part. */
+.portrait {
+  position:sticky;
+  top:120px;
+  border-radius:28px;
+  overflow:hidden;
+  background:#eceff3;
+  box-shadow:var(--shadow)
+}
+/* Style for .portrait img. Match class names to the HTML. Change the values below to adjust this part. */
+.portrait img {
+  width:100%;
+  aspect-ratio:1/1.08;
+  object-fit:cover
+}
+/* Style for .profile-title. Match class names to the HTML. Change the values below to adjust this part. */
+.profile-title {
+  color:var(--blue);
+  font-weight:800;
+  margin-bottom:8px
+}
+/* Style for .profile-copy h1. Match class names to the HTML. Change the values below to adjust this part. */
+.profile-copy h1 {
+  font-size:clamp(2.5rem,5vw,4.6rem);
+  line-height:1;
+  margin:0 0 14px;
+  letter-spacing:-.04em
+}
+/* Style for .profile-copy p. Match class names to the HTML. Change the values below to adjust this part. */
+.profile-copy p {
+  color:var(--muted);
+  font-size:1.07rem
+}
+/* Style for .people-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.people-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px
+}
+/* Style for .person. Match class names to the HTML. Change the values below to adjust this part. */
+.person {
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:22px;
+  overflow:hidden
+}
+/* PERSON PLACEHOLDER: Controls the letter box. The guide includes a picture replacement with matching proportions. */
+.person-avatar {
+  aspect-ratio:4/3;
+  background:linear-gradient(135deg,#e9f3ff,#d9eaff);
+  display:grid;
+  place-items:center;
+  color:var(--blue);
+  font-size:3rem;
+  font-weight:800
+}
+/* Style for .person-body. Match class names to the HTML. Change the values below to adjust this part. */
+.person-body {
+  padding:23px
+}
+/* Style for .person-body h3. Match class names to the HTML. Change the values below to adjust this part. */
+.person-body h3 {
+  margin:0 0 4px
+}
+/* Style for .person-role. Match class names to the HTML. Change the values below to adjust this part. */
+.person-role {
+  color:var(--blue);
+  font-weight:750;
+  font-size:.93rem;
+  margin-bottom:10px
+}
+/* Style for .person-body p. Match class names to the HTML. Change the values below to adjust this part. */
+.person-body p {
+  color:var(--muted);
+  margin:0;
+  font-size:.96rem
+}
+/* Style for .draft-note. Match class names to the HTML. Change the values below to adjust this part. */
+.draft-note {
+  display:inline-flex;
+  gap:8px;
+  align-items:center;
+  background:#fff7df;
+  color:#7a5812;
+  border:1px solid #f1d98d;
+  border-radius:999px;
+  padding:8px 12px;
+  font-size:.88rem;
+  font-weight:750;
+  margin-bottom:28px
+}
+/* Style for .partner-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.partner-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:18px
+}
+/* Style for .partner. Match class names to the HTML. Change the values below to adjust this part. */
+.partner {
+  min-height:190px;
+  border:1px solid var(--line);
+  border-radius:22px;
+  background:#fff;
+  padding:26px;
+  display:flex;
+  flex-direction:column;
+  justify-content:space-between
+}
+/* Style for .partner-mark. Match class names to the HTML. Change the values below to adjust this part. */
+.partner-mark {
+  width:54px;
+  height:54px;
+  border-radius:14px;
+  background:var(--blue-3);
+  color:var(--blue);
+  display:grid;
+  place-items:center;
+  font-weight:850
+}
+/* Style for .partner small. Match class names to the HTML. Change the values below to adjust this part. */
+.partner small {
+  color:var(--muted)
+}
+/* Style for .involve-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.involve-grid {
+  display:grid;
+  grid-template-columns:repeat(3,1fr);
+  gap:22px
+}
+/* Style for .involve-card. Match class names to the HTML. Change the values below to adjust this part. */
+.involve-card {
+  padding:34px;
+  border-radius:25px;
+  background:#fff;
+  border:1px solid var(--line);
+  display:flex;
+  flex-direction:column;
+  min-height:300px
+}
+/* Style for .involve-card h3. Match class names to the HTML. Change the values below to adjust this part. */
+.involve-card h3 {
+  font-size:1.5rem;
+  margin:10px 0
+}
+/* Style for .involve-card p. Match class names to the HTML. Change the values below to adjust this part. */
+.involve-card p {
+  color:var(--muted);
+  flex:1
+}
+/* Style for .contact-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.contact-grid {
+  display:grid;
+  grid-template-columns:.8fr 1.2fr;
+  gap:54px;
+  align-items:start
+}
+/* Style for .contact-panel. Match class names to the HTML. Change the values below to adjust this part. */
+.contact-panel {
+  background:var(--navy);
+  color:#fff;
+  padding:34px;
+  border-radius:26px
+}
+/* Style for .contact-panel p. Match class names to the HTML. Change the values below to adjust this part. */
+.contact-panel p {
+  color:#d5e3f1
+}
+/* Style for .contact-link. Match class names to the HTML. Change the values below to adjust this part. */
+.contact-link {
+  display:flex;
+  align-items:center;
+  gap:12px;
+  padding:15px 0;
+  border-top:1px solid rgba(255,255,255,.16)
+}
+/* Style for .form. Match class names to the HTML. Change the values below to adjust this part. */
+.form {
+  display:grid;
+  gap:15px
+}
+/* Style for .field label. Match class names to the HTML. Change the values below to adjust this part. */
+.field label {
+  display:block;
+  font-weight:700;
+  margin-bottom:6px
+}
+/* Style for .field input,.field textarea. Match class names to the HTML. Change the values below to adjust this part. */
+.field input,.field textarea {
+  width:100%;
+  padding:14px 15px;
+  border:1px solid var(--line);
+  border-radius:13px;
+  outline:none;
+  background:#fff
+}
+/* Style for .field textarea. Match class names to the HTML. Change the values below to adjust this part. */
+.field textarea {
+  min-height:150px;
+  resize:vertical
+}
+/* Style for .field input:focus,.field textarea:focus. Match class names to the HTML. Change the values below to adjust this part. */
+.field input:focus,.field textarea:focus {
+  border-color:var(--blue);
+  box-shadow:0 0 0 3px rgba(47,123,216,.12)
+}
+/* Style for .donate-card. Match class names to the HTML. Change the values below to adjust this part. */
+.donate-card {
+  max-width:840px;
+  margin:0 auto;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:30px;
+  padding:54px;
+  box-shadow:var(--shadow);
+  text-align:center
+}
+/* Style for .donate-card h2. Match class names to the HTML. Change the values below to adjust this part. */
+.donate-card h2 {
+  font-size:clamp(2rem,4vw,3.2rem);
+  margin:0 0 16px
+}
+/* Style for .donate-card p. Match class names to the HTML. Change the values below to adjust this part. */
+.donate-card p {
+  color:var(--muted);
+  max-width:650px;
+  margin:0 auto 26px
+}
+/* Style for .site-footer. Match class names to the HTML. Change the values below to adjust this part. */
+.site-footer {
+  background:#0b1d34;
+  color:#fff;
+  padding:66px 0 28px
+}
+/* Style for .footer-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-grid {
+  display:grid;
+  grid-template-columns:1.3fr .7fr .7fr;
+  gap:55px
+}
+/* Style for .footer-brand img. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-brand img {
+  width:175px;
+  height:74px;
+  object-fit:contain;
+  object-position:left center;
+  filter:brightness(0) invert(1)
+}
+/* Style for .footer-brand p. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-brand p {
+  color:#b7c7db;
+  max-width:420px
+}
+/* Style for .footer h4. Match class names to the HTML. Change the values below to adjust this part. */
+.footer h4 {
+  margin:0 0 14px;
+  font-size:1rem;
+  color:#dce8f5
+}
+/* Style for .footer-links. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-links {
+  display:grid;
+  gap:9px;
+  color:#b7c7db
+}
+/* Style for .footer-links a:hover. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-links a:hover {
+  color:#fff
+}
+/* Style for .footer-bottom. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-bottom {
+  border-top:1px solid rgba(255,255,255,.12);
+  margin-top:44px;
+  padding-top:24px;
+  color:#8fa5bf;
+  font-size:.9rem;
+  display:flex;
+  justify-content:space-between;
+  gap:20px
+}
+/* Style for .whatsapp-fab. Match class names to the HTML. Change the values below to adjust this part. */
+.whatsapp-fab {
+  position:fixed;
+  right:20px;
+  bottom:20px;
+  width:56px;
+  height:56px;
+  border-radius:50%;
+  display:grid;
+  place-items:center;
+  background:#25D366;
+  color:#fff;
+  font-size:1.35rem;
+  box-shadow:0 12px 28px rgba(0,0,0,.18);
+  z-index:45;
+  font-weight:900
+}
+/* SMALL SCREEN RULES: Only apply when the window is at most 980 pixels wide. Keep these rules after the desktop rules. */
+@media (max-width:980px) {
+/* Style for .menu-btn. Match class names to the HTML. Change the values below to adjust this part. */
+  .menu-btn {
+  display:block
+}
+/* Style for .nav. Match class names to the HTML. Change the values below to adjust this part. */
+.nav {
+  min-height:74px
+}
+/* Style for .brand img. Match class names to the HTML. Change the values below to adjust this part. */
+.brand img {
+  width:140px;
+  height:56px
+}
+/* Style for .nav-links. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links {
+  position:fixed;
+  top:75px;
+  left:18px;
+  right:18px;
+  display:none;
+  flex-direction:column;
+  align-items:stretch;
+  background:#fff;
+  border:1px solid var(--line);
+  border-radius:20px;
+  padding:14px;
+  box-shadow:var(--shadow);
+  margin:0
+}
+/* Style for .nav-links.open. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links.open {
+  display:flex
+}
+/* Style for .nav-links>a,.dropdown-toggle. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-links>a,.dropdown-toggle {
+  text-align:left;
+  width:100%
+}
+/* Style for .dropdown-menu. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown-menu {
+  position:static;
+  width:auto;
+  box-shadow:none;
+  border:0;
+  padding:4px 12px;
+  display:none;
+  opacity:1;
+  visibility:visible;
+  transform:none
+}
+/* Style for .dropdown.open .dropdown-menu. Match class names to the HTML. Change the values below to adjust this part. */
+.dropdown.open .dropdown-menu {
+  display:block
+}
+/* Style for .nav-actions .btn. Match class names to the HTML. Change the values below to adjust this part. */
+.nav-actions .btn {
+  display:none
+}
+/* Style for .hero. Match class names to the HTML. Change the values below to adjust this part. */
+.hero {
+  min-height:630px
+}
+/* Style for .hero-content. Match class names to the HTML. Change the values below to adjust this part. */
+.hero-content {
+  padding:90px 0 68px
+}
+/* Style for .intro-grid,.split,.founder-grid,.contact-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.intro-grid,.split,.founder-grid,.contact-grid {
+  grid-template-columns:1fr;
+  gap:40px
+}
+/* Style for .portrait. Match class names to the HTML. Change the values below to adjust this part. */
+.portrait {
+  position:relative;
+  top:auto;
+  max-width:620px
+}
+/* Style for .cards,.people-grid,.partner-grid,.involve-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.cards,.people-grid,.partner-grid,.involve-grid {
+  grid-template-columns:1fr 1fr
+}
+/* PHOTO GRID: This original layout gives the first two rows fixed heights. See the guide before adding more photos. */
+.gallery {
+  grid-template-columns:1fr 1fr;
+  grid-template-rows:260px 220px 220px
+}
+/* FIRST PHOTO: Let the first gallery picture take extra room. */
+.gallery figure:first-child {
+  grid-column:1/3;
+  grid-row:auto
+}
+/* Style for .cta-band. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band {
+  align-items:flex-start;
+  flex-direction:column
+}
+/* Style for .footer-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-grid {
+  grid-template-columns:1fr 1fr
+}
+/* Style for .footer-brand. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-brand {
+  grid-column:1/3
+}
+}
+/* SMALL SCREEN RULES: Only apply when the window is at most 640 pixels wide. Keep these rules after the desktop rules. */
+@media (max-width:640px) {
+/* Style for .container. Match class names to the HTML. Change the values below to adjust this part. */
+  .container {
+  width:min(calc(100% - 26px),var(--max))
+}
+/* Style for .announcement. Match class names to the HTML. Change the values below to adjust this part. */
+.announcement {
+  font-size:.8rem
+}
+/* Style for .nav. Match class names to the HTML. Change the values below to adjust this part. */
+.nav {
+  gap:10px
+}
+/* Style for .brand. Match class names to the HTML. Change the values below to adjust this part. */
+.brand {
+  min-width:0
+}
+/* Style for .brand img. Match class names to the HTML. Change the values below to adjust this part. */
+.brand img {
+  width:126px
+}
+/* Style for .hero. Match class names to the HTML. Change the values below to adjust this part. */
+.hero {
+  min-height:600px
+}
+/* Style for .hero::before. Match class names to the HTML. Change the values below to adjust this part. */
+.hero::before {
+  background:linear-gradient(0deg,rgba(7,22,41,.88) 0%,rgba(7,22,41,.5) 72%,rgba(7,22,41,.25) 100%)
+}
+/* Style for .hero-media. Match class names to the HTML. Change the values below to adjust this part. */
+.hero-media {
+  object-position:57% center
+}
+/* Style for .hero h1,.page-hero h1. Match class names to the HTML. Change the values below to adjust this part. */
+.hero h1,.page-hero h1 {
+  letter-spacing:-.035em
+}
+/* Style for .section. Match class names to the HTML. Change the values below to adjust this part. */
+.section {
+  padding:68px 0
+}
+/* Style for .section-sm. Match class names to the HTML. Change the values below to adjust this part. */
+.section-sm {
+  padding:52px 0
+}
+/* Style for .cards,.people-grid,.partner-grid,.involve-grid,.values. Match class names to the HTML. Change the values below to adjust this part. */
+.cards,.people-grid,.partner-grid,.involve-grid,.values {
+  grid-template-columns:1fr
+}
+/* Style for .image-frame img. Match class names to the HTML. Change the values below to adjust this part. */
+.image-frame img {
+  height:360px
+}
+/* PHOTO GRID: This original layout gives the first two rows fixed heights. See the guide before adding more photos. */
+.gallery {
+  display:grid;
+  grid-template-columns:1fr;
+  grid-template-rows:none
+}
+/* Style for .gallery figure,.gallery figure:first-child. Match class names to the HTML. Change the values below to adjust this part. */
+.gallery figure,.gallery figure:first-child {
+  grid-column:auto;
+  grid-row:auto;
+  height:240px
+}
+/* Style for .cta-band. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band {
+  padding:34px 25px;
+  border-radius:24px
+}
+/* Style for .cta-band .actions. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band .actions {
+  width:100%
+}
+/* Style for .cta-band .btn. Match class names to the HTML. Change the values below to adjust this part. */
+.cta-band .btn {
+  width:100%
+}
+/* Style for .page-hero. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero {
+  padding:85px 0 62px
+}
+/* Style for .page-hero.with-image. Match class names to the HTML. Change the values below to adjust this part. */
+.page-hero.with-image {
+  min-height:470px
+}
+/* Style for .founder-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.founder-grid {
+  gap:30px
+}
+/* Style for .donate-card. Match class names to the HTML. Change the values below to adjust this part. */
+.donate-card {
+  padding:34px 22px
+}
+/* Style for .footer-grid. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-grid {
+  grid-template-columns:1fr
+}
+/* Style for .footer-brand. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-brand {
+  grid-column:auto
+}
+/* Style for .footer-bottom. Match class names to the HTML. Change the values below to adjust this part. */
+.footer-bottom {
+  flex-direction:column
+}
+/* Style for .whatsapp-fab. Match class names to the HTML. Change the values below to adjust this part. */
+.whatsapp-fab {
+  width:52px;
+  height:52px;
+  right:14px;
+  bottom:14px
+}
+}
